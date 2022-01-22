@@ -11,14 +11,26 @@ export default class App extends Component {
     super()
 
     this.state = {
-      monthData: dummyData.data[0]
+      monthData: dummyData.data[0],
+      currentIndex: 0
     }
+
+    this.handleMonthChange = this.handleMonthChange.bind(this)
+  }
+
+  handleMonthChange(direction) {
+    const newIndex = direction === "next" ? this.state.currentIndex + 1 : this.state.currentIndex - 1
+
+    this.setState({
+      monthData: dummyData.data[newIndex],
+      currentIndex: newIndex
+    })
   }
 
   render() {
     return (
       <div className='page-wrapper'>
-        <Header month={this.state.monthData.name} />
+        <Header month={this.state.monthData.name} handleMonthChange={this.handleMonthChange} />
         <ContentWrapper 
           daysInMonth={this.state.monthData.days_in_month} 
           daysInPreviousMonth={this.state.monthData.days_in_previous_month}
