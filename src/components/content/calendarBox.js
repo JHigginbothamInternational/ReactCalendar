@@ -38,7 +38,7 @@ export default class CalendarBox extends Component {
             <div className="calendar-box">
                 <div className="date">{this.props.date}</div>
                 <textarea 
-                    value={this.state.text}
+                    value={this.props.reminder ? this.props.reminder.text : this.state.text}
                     onChange={this.handleChange}
                     onBlur={this.handleSubmit}
                 ></textarea>

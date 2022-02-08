@@ -63,8 +63,17 @@ export default class App extends Component {
 
     this.setState({
       monthData: this.state.data[newIndex],
-      currentIndex: newIndex
+      currentIndex: newIndex,
+      reminderData: []
     })
+
+    fetch(`http://127.0.0.1:5000/reminder/get/${this.state.data[newIndex].name}/2022`)
+      .then(response => response.json())
+      .then(data => this.setState({
+        reminderData: data
+      }))
+      .catch(error => console.log("Error getting reminders: ", error))
+
   }
 
   render() {
