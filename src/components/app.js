@@ -21,7 +21,7 @@ export default class App extends Component {
   }
 
   componentDidMount() {
-    async function getData() {
+    const getData = async () => {
       await fetch("http://127.0.0.1:5000/month/get/2022")
       .then(response => response.json())
       .then(data => this.setState({
@@ -29,8 +29,13 @@ export default class App extends Component {
         monthData: this.formatData(data)[this.state.currentIndex] 
       }))
       .catch(error => console.log("Error getting months: ", error))
-
-      fetch(`http://127.0.0.1:5000/request/get/${this.state.monthData.name}/2022`)
+    
+      fetch(`http://127.0.0.1:5000/reminder/get/${this.state.monthData.name}/2022`)
+      .then(response => response.json())
+      .then(data => this.setState({
+        reminderData: data
+      }))
+      .catch(error => console.log("Error getting reminders: ", error))
     }
 
     getData()
